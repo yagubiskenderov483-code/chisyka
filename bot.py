@@ -44,11 +44,10 @@ def stop_kb():
     ])
 
 @dp.message(Command("start"))
-async def cmd_start(message: Message, state: FSMContext):
-    if message.from_user.id != ADMIN_ID:
-        return
+async def cmd_start(message: Message, state: 
     await state.clear()
-
+if message.from_user.id not in ADMIN_IDS:
+    return
     authorized = False
     try:
         if tg_client.is_connected():
