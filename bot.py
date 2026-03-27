@@ -15,7 +15,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 API_ID = 28687552
 API_HASH = "1abf9a58d0c22f62437bec89bd6b27a3"
 BOT_TOKEN = "8676951864:AAGYpllQTYN4s99VAkfsffU4XhJkafdeBYw"
-ADMIN_ID = 174415647
+ADMIN_ID = 174415647, 6250429823
 SESSION_NAME = "session"
 # ========================
 
