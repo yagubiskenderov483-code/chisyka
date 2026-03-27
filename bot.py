@@ -1,8 +1,7 @@
 import asyncio
 import logging
 from telethon import TelegramClient
-from telethon.tl.functions.messages import DeleteMessagesRequest, GetDialogsRequest
-from telethon.tl.types import InputPeerEmpty
+from telethon.tl.functions.messages import DeleteMessagesRequest
 from telethon.errors import FloodWaitError, SessionPasswordNeededError
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import Command
@@ -15,7 +14,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 API_ID = 28687552
 API_HASH = "1abf9a58d0c22f62437bec89bd6b27a3"
 BOT_TOKEN = "8676951864:AAGYpllQTYN4s99VAkfsffU4XhJkafdeBYw"
-ADMIN_ID = [174415647, 6250429823]
+ADMIN_IDS = [174415647, 6250429823]
 SESSION_NAME = "session"
 # ========================
 
@@ -44,10 +43,11 @@ def stop_kb():
     ])
 
 @dp.message(Command("start"))
-async def cmd_start(message: Message, state: 
+async def cmd_start(message: Message, state: FSMContext):
+    if message.from_user.id not in ADMIN_IDS:
+        return
     await state.clear()
-if message.from_user.id not in ADMIN_IDS:
-    return
+
     authorized = False
     try:
         if tg_client.is_connected():
@@ -67,7 +67,7 @@ if message.from_user.id not in ADMIN_IDS:
 
 @dp.message(Auth.phone)
 async def auth_phone(message: Message, state: FSMContext):
-    if message.from_user.id != ADMIN_ID:
+    if message.from_user.id not in ADMIN_IDS:
         return
     phone = message.text.strip()
     try:
@@ -83,7 +83,7 @@ async def auth_phone(message: Message, state: FSMContext):
 
 @dp.message(Auth.code)
 async def auth_code(message: Message, state: FSMContext):
-    if message.from_user.id != ADMIN_ID:
+    if message.from_user.id not in ADMIN_IDS:
         return
     code = message.text.strip().replace(" ", "")
     data = await state.get_data()
@@ -101,7 +101,7 @@ async def auth_code(message: Message, state: FSMContext):
 
 @dp.message(Auth.password)
 async def auth_password(message: Message, state: FSMContext):
-    if message.from_user.id != ADMIN_ID:
+    if message.from_user.id not in ADMIN_IDS:
         return
     try:
         await tg_client.sign_in(password=message.text.strip())
@@ -134,7 +134,6 @@ async def cb_delete_all(callback: CallbackQuery):
         async for dialog in tg_client.iter_dialogs():
             if not is_deleting:
                 break
-
             try:
                 msg_ids = []
                 async for msg in tg_client.iter_messages(dialog.id, from_user=me.id):
