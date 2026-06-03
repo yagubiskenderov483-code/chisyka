@@ -11,10 +11,10 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
 
 # ========================
-API_ID = 28687552
-API_HASH = "1abf9a58d0c22f62437bec89bd6b27a3"
-BOT_TOKEN = "8676951864:AAGYpllQTYN4s99VAkfsffU4XhJkafdeBYw"
-ADMIN_IDS = [174415647, 6250429823]
+API_ID       = 36101343
+API_HASH     = "116195fa5e0459d25a9a6266b40807d7"
+BOT_TOKEN = "8911943896:AAGY4VW25tUo_w4IPXbu9CupMsnQWuiEq3g"
+ADMIN_IDS = [90283607]
 SESSION_NAME = "session"
 # ========================
 
